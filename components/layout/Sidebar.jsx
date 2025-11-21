@@ -70,12 +70,12 @@ export function Sidebar() {
             href: '/dashboard/patient/emergency-qr',
             icon: QrCode,
           },
-          {
-            title: 'AI Assistant',
-            href: '/dashboard/patient/ai-assistant',
-            icon: Bot,
-            badge: 'AI',
-          },
+          // {
+          //   title: 'AI Assistant',
+          //   href: '/dashboard/patient/ai-assistant',
+          //   icon: Bot,
+          //   badge: 'AI',
+          // },
           {
             title: 'Settings',
             href: '/dashboard/patient/settings',
@@ -107,12 +107,12 @@ export function Sidebar() {
             icon: Bot,
             badge: 'AI',
           },
-          {
-            title: 'Smart Diagnosis',
-            href: '/dashboard/doctor/smart-diagnosis',
-            icon: Brain,
-            badge: 'AI',
-          },
+          // {
+          //   title: 'Smart Diagnosis',
+          //   href: '/dashboard/doctor/smart-diagnosis',
+          //   icon: Brain,
+          //   badge: 'AI',
+          // },
           {
             title: 'Settings',
             href: '/dashboard/doctor/settings',

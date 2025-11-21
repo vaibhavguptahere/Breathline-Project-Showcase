@@ -360,7 +360,7 @@ export default function PatientDashboard() {
       </div>
 
       {/* AI Assistant and Upload Trends */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20">
           <CardHeader>
             <CardTitle className="flex items-center">
@@ -470,7 +470,7 @@ export default function PatientDashboard() {
             )}
           </CardContent>
         </Card>
-      </div>
+      </div> */}
 
       {/* Quick Stats Summary */}
       <Card>

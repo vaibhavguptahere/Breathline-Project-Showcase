@@ -237,7 +237,7 @@ export default function DoctorAIAssistant() {
       </div>
 
       {/* Rate Limit Info */}
-      {!loadingRateLimit && rateLimitInfo && (
+      {/* {!loadingRateLimit && rateLimitInfo && (
         <Card className="border-blue-200 bg-blue-50 dark:bg-blue-900/20">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm flex items-center">
@@ -258,13 +258,12 @@ export default function DoctorAIAssistant() {
             </div>
           </CardContent>
         </Card>
-      )}
+      )} */}
 
       <Tabs defaultValue="patient-analysis" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+        {/* <TabsList className="grid w-full grid-cols-1">
           <TabsTrigger value="patient-analysis">Patient Analysis</TabsTrigger>
-          <TabsTrigger value="clinical-chat">Clinical Chat</TabsTrigger>
-        </TabsList>
+        </TabsList> */}
 
         <TabsContent value="patient-analysis" className="space-y-6">
           <div className="grid lg:grid-cols-2 gap-6">
@@ -547,160 +546,6 @@ export default function DoctorAIAssistant() {
               </CardContent>
             </Card>
           )}
-        </TabsContent>
-
-        <TabsContent value="clinical-chat" className="space-y-6">
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Chat Interface */}
-            <div className="lg:col-span-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <MessageCircle className="mr-2 h-5 w-5 text-blue-600" />
-                    AI Clinical Chat
-                  </CardTitle>
-                  <CardDescription>
-                    Get clinical decision support and medical information
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {/* Chat Messages */}
-                  <div className="h-96 overflow-y-auto border rounded-lg p-4 space-y-4">
-                    {chatMessages.map((message) => (
-                      <div
-                        key={message.id}
-                        className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                      >
-                        <div
-                          className={`max-w-[80%] p-3 rounded-lg ${
-                            message.type === 'user'
-                              ? 'bg-blue-600 text-white'
-                              : 'bg-gray-100 dark:bg-gray-800'
-                          }`}
-                        >
-                          <div className="text-sm whitespace-pre-wrap">{message.content}</div>
-                          <p className="text-xs opacity-70 mt-1">
-                            {message.timestamp.toLocaleTimeString()}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                    
-                    {isTyping && (
-                      <div className="flex justify-start">
-                        <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg">
-                          <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Chat Input */}
-                  <div className="flex space-x-2">
-                    <Input
-                      value={currentMessage}
-                      onChange={(e) => setCurrentMessage(e.target.value)}
-                      placeholder="Ask about clinical decisions, drug interactions, diagnoses..."
-                      onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
-                      className="flex-1"
-                      disabled={rateLimitInfo && rateLimitInfo.remaining <= 0}
-                    />
-                    <Button 
-                      onClick={sendChatMessage} 
-                      disabled={!currentMessage.trim() || isTyping || (rateLimitInfo && rateLimitInfo.remaining <= 0)}
-                    >
-                      <Send className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  
-                  {rateLimitInfo && rateLimitInfo.remaining <= 0 && (
-                    <Alert>
-                      <AlertTriangle className="h-4 w-4" />
-                      <AlertDescription>
-                        Daily AI request limit reached. Resets at midnight.
-                      </AlertDescription>
-                    </Alert>
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Clinical Tools */}
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Stethoscope className="mr-2 h-5 w-5 text-green-600" />
-                    Quick Clinical Queries
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start text-sm"
-                    onClick={() => setCurrentMessage("What are the latest guidelines for hypertension management?")}
-                  >
-                    <TrendingUp className="mr-2 h-4 w-4" />
-                    Clinical Guidelines
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start text-sm"
-                    onClick={() => setCurrentMessage("Check drug interactions for metformin and lisinopril")}
-                  >
-                    <AlertTriangle className="mr-2 h-4 w-4" />
-                    Drug Interactions
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start text-sm"
-                    onClick={() => setCurrentMessage("Differential diagnosis for chest pain in 45-year-old male")}
-                  >
-                    <Brain className="mr-2 h-4 w-4" />
-                    Differential Diagnosis
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start text-sm"
-                    onClick={() => setCurrentMessage("Recommended lab tests for diabetes monitoring")}
-                  >
-                    <FileText className="mr-2 h-4 w-4" />
-                    Lab Recommendations
-                  </Button>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Patient Context</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium">Select Patient for Context</label>
-                    <select
-                      value={selectedPatient}
-                      onChange={(e) => setSelectedPatient(e.target.value)}
-                      className="w-full p-2 border rounded-md text-sm"
-                    >
-                      <option value="">No patient selected</option>
-                      {patients.map((patient) => (
-                        <option key={patient.id} value={patient.id}>
-                          {patient.name}
-                        </option>
-                      ))}
-                    </select>
-                    <p className="text-xs text-muted-foreground">
-                      Select a patient to provide context for AI responses
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
         </TabsContent>
       </Tabs>
     </div>
